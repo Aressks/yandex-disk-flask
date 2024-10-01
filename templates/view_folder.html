@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Yandex Disk File Viewer</title>
+
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/viewFolder.css') }}"
+    />
+  </head>
+  <body>
+    <div class="header-container">
+      <h1 style="text-align: center">Файлы на Яндекс.Диске</h1>
+
+      <p>Текущий путь: {{ current_path or 'Корневой' }}</p>
+
+      <a href="{{ url_for('index') }}">Ввести новую публичную ссылку</a> <br />
+
+      {% if parent_path is not none %}
+
+      <a
+        href="{{ url_for('view_folder', public_key=public_key, path=parent_path) }}"
+        >Назад</a
+      ><br />
+      {% endif %}
+    </div>
+
+    <div class="files-container">
+      {% if folders|length == 0 and files|length == 0 %}
+      <h2>Файлов и папок нет</h2>
+      {% endif %} {% if folders %}
+      <h2>Папки:</h2>
+      <ul class="folders-wrapper">
+        {% for folder in folders %}
+        <li>
+          <a
+            href="{{ url_for('view_folder', public_key=public_key, path=folder.path) }}"
+          >
+            {{ folder.name }}
+          </a>
+          <form
+            method="POST"
+            action="{{ url_for('download_folder') }}"
+            style="display: inline"
+          >
+            <input type="hidden" name="public_key" value="{{ public_key }}" />
+            <input type="hidden" name="folder_path" value="{{ folder.path }}" />
+            <button type="submit">Скачать папку</button>
+          </form>
+        </li>
+        <br />
+        {% endfor %}
+      </ul>
+      {% endif %} {% if files %}
+      <h2>Файлы:</h2>
+      <div class="files-wrapper">
+        <form method="POST" action="{{ url_for('download_selected') }}">
+          {% for file in files %}
+          <div>
+            <input
+              type="checkbox"
+              name="selected_files"
+              value="{{ file.download_url }}"
+            />
+            <span>
+              {{ file.name }} ({{ "%.2f" | format(file.size / 1048576) }} MB)
+            </span>
+          </div>
+          {% endfor %}
+          <button type="submit">Скачать выбранные файлы</button>
+        </form>
+      </div>
+      {% endif %}
+    </div>
+  </body>
+</html>

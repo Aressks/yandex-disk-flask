@@ -1,0 +1,50 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.header-container {
+  text-align: center;
+}
+
+.header-container form {
+  width: 30%;
+  margin: auto;
+}
+
+.header-container label {
+  font-size: 22px;
+  font-weight: bold;
+}
+.header-container input {
+  width: 100%;
+  box-sizing: border-box;
+  color: rgb(0, 0, 0);
+  background-color: rgb(185, 185, 185);
+  border-radius: 50px;
+  border: 2px solid black;
+  padding: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+
+.header-container button {
+  background-color: rgb(65, 12, 115);
+  box-shadow: 0px 1px 5px 1px rgb(235, 235, 235);
+  border: none;
+  padding: 15px;
+  color: white;
+  font-weight: 600;
+  font-size: 16px;
+  border-radius: 50px;
+
+  cursor: pointer;
+
+  transition: 0.5s ease;
+}
+
+.header-container button:hover {
+  transform: scale(1.05);
+}

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Yandex Disk File Viewer</title>
+
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/index.css') }}"
+    />
+  </head>
+  <body>
+    <div class="header-container">
+      <h1>Просмотр файлов на Яндекс.Диске</h1>
+
+      <form method="POST">
+        <label for="public_key">Введите публичную ссылку (public_key)</label>
+        <br />
+        <input type="text" id="public_key" name="public_key" required />
+        <br />
+        <button type="submit">Получить список файлов</button>
+      </form>
+
+      {% if error %}
+      <p style="color: red">{{ error }}</p>
+      {% endif %}
+    </div>
+  </body>
+</html>
